@@ -6,4 +6,4 @@
 - ASP.NET Core Identity
 - HTML, CSS, JavaScript, jQuery
 - AJAX 
-- Bootstrap Framework
+- Bootstrap
