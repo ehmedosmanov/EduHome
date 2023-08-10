@@ -1,0 +1,177 @@
+﻿@model HomeVM
+<!-- Background Area Start -->
+        <section id="slider-container" class="slider-area two"> 
+            <div class="slider-owl owl-theme owl-carousel"> 
+                @foreach (Slider slider in Model.sliders)
+                {
+            <!-- Start Slingle Slide -->
+            <div class="single-slide item" style="background-image: url(../img/slider/@slider.Img">
+                <!-- Start Slider Content -->
+                <div class="slider-content-area">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-10 col-md-offset-1">
+                                <div class="slide-content-wrapper">
+                                    <div class="slide-content text-center">
+                                        <h2>@slider.Title</h2>
+                                        <p>@slider.Description</p>
+                                        <a class="default-btn" href="about.html">Learn more</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Start Slider Content -->
+            </div>
+            <!-- End Slingle Slide -->
+        }
+						
+            </div>
+        </section>
+        <!-- Background Area End -->
+        <!-- Service Start -->
+        <div class="service-area two pt-150 pb-150">
+            <div class="container">
+                <div class="row">
+                    @foreach (Service service in Model.services)
+            {
+             <div class="col-md-4 col-sm-4 col-xs-12">
+                        <div class="single-service">
+                            <h3><a href="teacher.html">@service.Name</a></h3>
+                            <p>@service.Description</p>
+                        </div>
+                    </div>   
+            }
+                </div>
+            </div>
+        </div>
+        <!-- Service End -->
+        @await Component.InvokeAsync("About")
+        <!-- Courses Area Start -->
+        <div class="courses-area two pt-150 pb-150 text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="section-title">
+                            <img src="~/img/icon/section1.png" alt="section-title">
+                            <h2>COURSES WE OFFER</h2>
+                        </div>
+                    </div>
+                </div>
+        <div class="row">
+            @await Component.InvokeAsync("Courses", 3)
+        </div>
+            </div>
+        </div>
+        <!-- Courses Area End -->
+        <!-- Notice Start -->
+        <section class="notice-area two pt-140">
+            <div class="container">
+                <div class="row">
+                    @await Component.InvokeAsync("VideoTour")
+            @await Component.InvokeAsync("NoticeBoard")
+                </div>
+            </div>
+        </section>
+        <!-- Notice End -->
+        <!-- Event Area Start -->
+        <div class="event-area two text-center pt-100 pb-145">
+            <div class="container">
+                <div class="row">
+                     <div class="col-xs-12">
+                        <div class="section-title">
+                            <img src="~/img/icon/section.png" alt="section-title">
+                            <h2>UPCOMMING EVENTS</h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="single-event mb-35">
+                            <div class="event-img">
+                                <a href="event-details.html"><img src="~/img/event/event1.jpg" alt="event"></a>
+                            </div>
+                            <div class="event-content text-left">
+                                <h3>20 June 2017</h3>
+                                <h4><a href="event-details.html">ADVANCE PHP WORKSHOP</a></h4>
+                                <ul>
+                                    <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
+                                    <li><i class="fa fa-map-marker"></i>New Yourk City</li>
+                                </ul>
+                                <div class="event-content-right">
+                                    <a class="default-btn" href="event-details.html">join now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-event hidden-sm hidden-xs">
+                            <div class="event-img">
+                                <a href="event-details.html"><img src="~/img/event/event3.jpg" alt="event"></a>
+                            </div>
+                            <div class="event-content text-left">
+                                <h3>16 June 2017</h3>
+                                <h4><a href="event-details.html">learning english history</a></h4>
+                                <ul>
+                                    <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
+                                    <li><i class="fa fa-map-marker"></i>New Yourk City</li>
+                                </ul>
+                                <div class="event-content-right">
+                                    <a class="default-btn" href="event-details.html">join now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-12 col-xs-12">
+                        <div class="single-event mb-35">
+                            <div class="event-img">
+                                <a href="event-details.html"><img src="~/img/event/event2.jpg" alt="event"></a>
+                            </div>
+                            <div class="event-content text-left">
+                                <h3>18 June 2017</h3>
+                                <h4><a href="event-details.html">DIGITAL MARKETING ANALYSIS</a></h4>
+                                <ul>
+                                    <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
+                                    <li><i class="fa fa-map-marker"></i>New Yourk City</li>
+                                </ul>
+                                <div class="event-content-right">
+                                    <a class="default-btn" href="event-details.html">join now</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single-event hidden-sm hidden-xs">
+                            <div class="event-img">
+                                <a href="event-details.html"><img src="~/img/event/event3.jpg" alt="event"></a>
+                            </div>
+                            <div class="event-content text-left">
+                                <h3>14 June 2017</h3>
+                                <h4><a href="event-details.html">UI & UX DESIGNER MEETUP</a></h4>
+                                <ul>
+                                    <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
+                                    <li><i class="fa fa-map-marker"></i>New Yourk City</li>
+                                </ul>
+                                <div class="event-content-right">
+                                    <a class="default-btn" href="event-details.html">join now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Event Area End -->
+        @await Component.InvokeAsync("Feedback")
+        <!-- Blog Area Start -->
+        <div class="blog-area pt-150 pb-150">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="section-title text-center">
+                            <img src="~/img/icon/section.png" alt="section-title">
+                            <h2>LATEST FROM BLOG</h2>
+                        </div>
+                    </div>
+                </div>
+                @await Component.InvokeAsync("Blog", 3)
+            </div>
+        </div>
+        <!-- Blog Area End -->

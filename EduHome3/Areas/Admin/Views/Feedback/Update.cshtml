@@ -1,0 +1,41 @@
+﻿@model Feedback
+
+
+<div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Update Feedback</h4>
+                <form method="post" class="forms-sample" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>Author Photo</label>
+                        <input asp-for="Photo" class="form-control">
+                        <span class="text-danger d-block mt-3" asp-validation-for="Photo"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Author</label>
+                        <input asp-for="Author" class="form-control">
+                        <span class="text-danger d-block mt-3" asp-validation-for="Author"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Role</label>
+                        <input asp-for="Role" class="form-control">
+                        <span class="text-danger d-block mt-3" asp-validation-for="Role"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <a asp-action="Index" class="btn btn-light">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+}

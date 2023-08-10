@@ -1,0 +1,26 @@
+﻿@model List<Blog>
+
+<div class="row">
+    @foreach(Blog blog in Model)
+    {
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="single-blog mb-60">
+                <div class="blog-img">
+                    <a href="#"><img src="img/blog/@blog.Img" alt="blog"></a>
+                    <div class="blog-hover">
+                        <i class="fa fa-link"></i>
+                    </div>
+                </div>
+                <div class="blog-content">
+                    <div class="blog-top">
+                        <p>By @blog.By /  @blog.Data.ToString("MMM dd,yyy")  /  <i class="fa fa-comments-o"></i> 4</p>
+                    </div>
+                    <div class="blog-bottom">
+                        <h2><a href="blog-details.html">@blog.Name </a></h2>
+                        <a href="blog-details.html">read more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

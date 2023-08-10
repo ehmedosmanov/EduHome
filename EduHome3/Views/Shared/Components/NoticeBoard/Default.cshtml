@@ -1,0 +1,17 @@
+﻿@model List<NoticeBoard>
+
+<div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="notice-left-wrapper">
+        <h3>notice board</h3>
+        <div class="notice-left">
+            @foreach (NoticeBoard notice in Model)
+            {
+                <div class="single-notice-left mb-23 pb-20">
+                    <h4>@notice.Data.ToString("d,MMM yyy")</h4>
+                <p>I must explain to you how all this mistaken idea of denouncing plasure and praising pain was born and I will give you a complete </p>
+            </div>
+            }
+        </div>
+    </div>
+</div>
+
