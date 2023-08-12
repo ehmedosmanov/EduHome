@@ -23,5 +23,10 @@ namespace EduHome3.DAL
         public DbSet<Blog> Blogs { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<CourseDetail> CourseDetails { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<Language> Languages { get; set; }
+        public DbSet<SkillLevel> SkillLevels { get; set; }
+        public DbSet<TagCourse> TagCourses { get; set; }
     }
 }

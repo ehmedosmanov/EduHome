@@ -177,6 +177,27 @@ namespace EduHome3.Migrations
                     b.ToTable("Blogs");
                 });
 
+            modelBuilder.Entity("EduHome3.Models.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryCount")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeactive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Category");
+                });
+
             modelBuilder.Entity("EduHome3.Models.Contact", b =>
                 {
                     b.Property<int>("Id")
@@ -202,6 +223,9 @@ namespace EduHome3.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
@@ -211,12 +235,57 @@ namespace EduHome3.Migrations
                     b.Property<bool>("IsDeactive")
                         .HasColumnType("bit");
 
+                    b.Property<int?>("LanguageId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<int?>("SkillLevelId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("LanguageId");
+
+                    b.HasIndex("SkillLevelId");
+
                     b.ToTable("Courses");
+                });
+
+            modelBuilder.Entity("EduHome3.Models.CourseDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<TimeSpan>("ClassDuration")
+                        .HasColumnType("time");
+
+                    b.Property<TimeSpan>("CourseDuration")
+                        .HasColumnType("time");
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CourseStart")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("StudentsCount")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId")
+                        .IsUnique();
+
+                    b.ToTable("CourseDetails");
                 });
 
             modelBuilder.Entity("EduHome3.Models.Feedback", b =>
@@ -245,6 +314,24 @@ namespace EduHome3.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Feedbacks");
+                });
+
+            modelBuilder.Entity("EduHome3.Models.Language", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsDeactive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("EduHome3.Models.NoticeBoard", b =>
@@ -288,6 +375,24 @@ namespace EduHome3.Migrations
                     b.ToTable("Services");
                 });
 
+            modelBuilder.Entity("EduHome3.Models.SkillLevel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsDeactive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SkillLevels");
+                });
+
             modelBuilder.Entity("EduHome3.Models.Slider", b =>
                 {
                     b.Property<int>("Id")
@@ -329,6 +434,46 @@ namespace EduHome3.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SocialMedias");
+                });
+
+            modelBuilder.Entity("EduHome3.Models.Tag", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsDeactive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tags");
+                });
+
+            modelBuilder.Entity("EduHome3.Models.TagCourse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CourseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CourseId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("TagCourses");
                 });
 
             modelBuilder.Entity("EduHome3.Models.Teacher", b =>
@@ -513,6 +658,57 @@ namespace EduHome3.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("EduHome3.Models.Course", b =>
+                {
+                    b.HasOne("EduHome3.Models.Category", "Category")
+                        .WithMany("Courses")
+                        .HasForeignKey("CategoryId");
+
+                    b.HasOne("EduHome3.Models.Language", "Language")
+                        .WithMany("Courses")
+                        .HasForeignKey("LanguageId");
+
+                    b.HasOne("EduHome3.Models.SkillLevel", "SkillLevel")
+                        .WithMany("Courses")
+                        .HasForeignKey("SkillLevelId");
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Language");
+
+                    b.Navigation("SkillLevel");
+                });
+
+            modelBuilder.Entity("EduHome3.Models.CourseDetail", b =>
+                {
+                    b.HasOne("EduHome3.Models.Course", "Course")
+                        .WithOne("CourseDetail")
+                        .HasForeignKey("EduHome3.Models.CourseDetail", "CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+                });
+
+            modelBuilder.Entity("EduHome3.Models.TagCourse", b =>
+                {
+                    b.HasOne("EduHome3.Models.Course", "Course")
+                        .WithMany("TagCourses")
+                        .HasForeignKey("CourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("EduHome3.Models.Tag", "Tag")
+                        .WithMany("TagCourses")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Course");
+
+                    b.Navigation("Tag");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -562,6 +758,33 @@ namespace EduHome3.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("EduHome3.Models.Category", b =>
+                {
+                    b.Navigation("Courses");
+                });
+
+            modelBuilder.Entity("EduHome3.Models.Course", b =>
+                {
+                    b.Navigation("CourseDetail");
+
+                    b.Navigation("TagCourses");
+                });
+
+            modelBuilder.Entity("EduHome3.Models.Language", b =>
+                {
+                    b.Navigation("Courses");
+                });
+
+            modelBuilder.Entity("EduHome3.Models.SkillLevel", b =>
+                {
+                    b.Navigation("Courses");
+                });
+
+            modelBuilder.Entity("EduHome3.Models.Tag", b =>
+                {
+                    b.Navigation("TagCourses");
                 });
 #pragma warning restore 612, 618
         }

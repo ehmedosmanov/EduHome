@@ -5,6 +5,7 @@ using EduHome3.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EduHome3.Controllers
@@ -137,7 +138,7 @@ namespace EduHome3.Controllers
             string token = await _userManager.GeneratePasswordResetTokenAsync(user);
 
 
-            string callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, Token = token}, HttpContext.Request.Scheme, "localhost:44376");
+            string callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, Token = token }, HttpContext.Request.Scheme, "localhost:44376");
 
             string body = $"Zəhmət olmasa, aşağıdakı linkə klikləməklə parolunuzu sıfırlayın: <a href='{callbackUrl}'>Reset Password</a>";
 
@@ -149,6 +150,7 @@ namespace EduHome3.Controllers
             TempData["ConfirmationMessage"] = "mektub gonderildi emaile";
             return RedirectToAction(nameof(ForgotPassword));
         }
+
 
 
 
@@ -177,25 +179,28 @@ namespace EduHome3.Controllers
         }
 
 
-
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ResetPassword(ResetPasswordVM resetPasswordVM)
+        public async Task<IActionResult> ResetPassword(string userId, string token, ResetPasswordVM resetPasswordVM)
         {
+            if (userId == null || token == null)
+            {
+                return NotFound();
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(resetPasswordVM);
             }
 
-            AppUser appUser = await _userManager.FindByIdAsync(resetPasswordVM.Id);
+            AppUser appUser = await _userManager.FindByIdAsync(userId);
 
             if (appUser == null)
             {
                 return BadRequest();
             }
 
-            IdentityResult identityResult = await _userManager.ResetPasswordAsync(appUser, resetPasswordVM.Token, resetPasswordVM.Password);
+            IdentityResult identityResult = await _userManager.ResetPasswordAsync(appUser, token, resetPasswordVM.Password);
 
             if (!identityResult.Succeeded)
             {
@@ -203,13 +208,17 @@ namespace EduHome3.Controllers
                 {
                     ModelState.AddModelError("", error.Description);
                 }
-                return View();
+                return View(resetPasswordVM);
             }
 
             return RedirectToAction("Login", "Account");
         }
 
         #endregion
+
+
+
+
 
 
 
